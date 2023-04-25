@@ -1,0 +1,17 @@
+Lesson 6 Homework
+
+Create a webdriver Data Driven test for a basic online calculator: https://www.theonlinecalculator.com/
+
+For you test you will need to 
+1) Create a browser session
+2) Open the correct web page
+3) Create a test (or tests) for (+) addition
+4) Create a test (or tests) for (-) subtraction
+5) Create a test (or tests) for (*) multiplication
+6) Create a test (or tests) for (/) division
+
+... Now identify the inputs and outputs, and convert into a single parameterized test with multiple data sets.
+
+Hint: a locator for an element can also we "input data"
+
+
