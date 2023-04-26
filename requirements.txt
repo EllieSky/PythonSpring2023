@@ -1,7 +1,4 @@
 selenium~=4.9.0
-<<<<<<< HEAD
-Faker==16.3.0
+Faker==18.5.1
 webdriver-manager~=3.8.6
-=======
-webdriver-manager~=3.8.6
->>>>>>> edd9833 (Added requirements file)
+
