@@ -32,7 +32,7 @@ class SearchTestCase(unittest.TestCase):
         employment_status = browser.find_element(By.XPATH, "//option[text()='Part Time']").text
         self.assertEqual("Part Time", employment_status)
 
-        # Selecting both filters
+        # Selecting QA Manager and Part Time filters
         browser.find_element(By.XPATH, "//option[text()='QA Manager']").click()
         browser.find_element(By.XPATH, "//option[text()='Part Time']").click()
 
