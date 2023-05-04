@@ -16,7 +16,6 @@ class LoginTestCase(unittest.TestCase):
     def tearDown(self) -> None:
         self.browser.quit()
 
-
     def test_valid_login(self):
         browser = self.browser
         browser.find_element(By.ID, 'txtUsername').send_keys('admin')
@@ -29,9 +28,9 @@ class LoginTestCase(unittest.TestCase):
         self.assertEqual('Welcome Admin', welcome_message)  # add assertion here
 
     @parameterized.expand([
-        ('no password','admin', '', '/auth/login', 'Password cannot be empty'),
-        ('no username','', 'password', '/auth/login', 'Username cannot be empty'),
-        ('bad password','admin', 'passW0rd', '/auth/validateCredentials', 'Invalid credentials'),
+        ('no password', 'admin', '', '/auth/login', 'Password cannot be empty'),
+        ('no username', '', 'password', '/auth/login', 'Username cannot be empty'),
+        ('bad password', 'admin', 'passW0rd', '/auth/validateCredentials', 'Invalid credentials'),
     ])
     def test_(self, test_name, username, password, url, expected_error_message):
         browser = self.browser
@@ -47,19 +46,3 @@ class LoginTestCase(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
