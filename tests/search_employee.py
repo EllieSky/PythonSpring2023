@@ -25,7 +25,7 @@ def search_by_job_title(browser, job_title):
 
     wait = WebDriverWait(browser, 3)
     wait.until(expected_conditions.element_located_to_be_selected(
-        [By.XPATH, f'//select[@id="empsearch_job_title"]/option[text()={job_title}]']))
+        [By.XPATH, f'//select[@id="empsearch_job_title"]/option[text()="{job_title}"]']))
 
 class MyTestCase(unittest.TestCase):
     def test_search_by_job_title(self):
