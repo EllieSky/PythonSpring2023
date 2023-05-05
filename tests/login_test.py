@@ -6,6 +6,8 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 
+from tests.search_employee import login
+
 
 class LoginTestCase(unittest.TestCase):
     def setUp(self) -> None:
@@ -19,9 +21,7 @@ class LoginTestCase(unittest.TestCase):
 
     def test_valid_login(self):
         browser = self.browser
-        browser.find_element(By.ID, 'txtUsername').send_keys('admin')
-        browser.find_element(By.ID, 'txtPassword').send_keys('password')
-        browser.find_element(By.ID, 'btnLogin').click()
+        login(browser)
 
         self.assertIn('/pim/viewEmployeeList', browser.current_url)
 
