@@ -29,10 +29,7 @@ class Hw8(unittest.TestCase):
         browser.find_element(By.XPATH, "//a[text()='Welcome Admin']").click()
         time.sleep(2)
         browser.find_element(By.XPATH, "//a[text()='Logout']").click()
-        assert browser.current_url == 'http://hrm-online.portnov.com/symfony/web/index.php/auth/login'
-
-
-
+        self.assertIn(browser.current_url == 'http://hrm-online.portnov.com/symfony/web/index.php/auth/login')
 
 
 
