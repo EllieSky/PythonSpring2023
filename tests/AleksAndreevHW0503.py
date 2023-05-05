@@ -31,10 +31,10 @@ class LoginTestCase(unittest.TestCase):
 
         self.assertIn('/pim/viewEmployeeList', browser.current_url)
 
-        qa_managers = browser.find_elements(By.XPATH, '//td[text()="QA Manager"]')
-        for i in qa_managers:
-            job_title = i.text
-            self.assertEqual('QA Manager', job_title)
+        all_job_title_values = browser.find_elements(By.CSS_SELECTOR, '#resultTable tr>td:nth-child(5)')
+
+        for job_title in all_job_title_values:
+            self.assertEqual('QA Manager', job_title.text)
 
         browser.find_element(By.ID, 'welcome').click()
         time.sleep(1)
