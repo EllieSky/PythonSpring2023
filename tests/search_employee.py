@@ -4,27 +4,43 @@ import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
+
+
+def login(browser, user='admin', password='password'):
+    browser.find_element(By.ID, 'txtUsername').send_keys(user)
+    browser.find_element(By.ID, 'txtPassword').send_keys(password)
+    browser.find_element(By.ID, 'btnLogin').click()
+
+
+def get_greeting(browser):
+    return browser.find_element(By.ID, 'welcome').text
+
+
+def search_by_job_title(browser, job_title):
+    Select(browser.find_element(By.ID, 'empsearch_job_title')).select_by_visible_text(job_title)
+    browser.find_element(By.ID, 'searchBtn').click()
+
+    wait = WebDriverWait(browser, 3)
+    wait.until(expected_conditions.element_located_to_be_selected(
+        (By.CSS_SELECTOR, f"//select[@id='empsearch_job_title']/option[text()={job_title}]"))
+    )
 
 
 class MyTestCase(unittest.TestCase):
     def test_search_by_job_title(self):
         browser = self.browser
-        browser.find_element(By.ID, 'txtUsername').send_keys('admin')
-        browser.find_element(By.ID, 'txtPassword').send_keys('password')
-        browser.find_element(By.ID, 'btnLogin').click()
+        login(browser)
 
         self.assertIn('/pim/viewEmployeeList', browser.current_url)
 
-        welcome_message = browser.find_element(By.ID, 'welcome').text
+        welcome_message = get_greeting(browser)
         self.assertEqual('Welcome Admin', welcome_message)  # add assertion here
 
-        browser.find_element(By.ID, 'empsearch_job_title').click()
-        browser.find_element(By.CSS_SELECTOR, '#empsearch_job_title > option:nth-child(8)').click()
-
-        browser.find_element(By.ID, 'searchBtn').click()
-
-        time.sleep(2)
+        search_by_job_title(browser, 'QA Manager')
 
         all_job_title_values = browser.find_elements(By.CSS_SELECTOR, '#resultTable tr>td:nth-child(5)')
 
@@ -32,8 +48,11 @@ class MyTestCase(unittest.TestCase):
             self.assertEqual('QA Manager', job_title.text)
 
         browser.find_element(By.ID, 'welcome').click()
-        time.sleep(1)
-        browser.find_element(By.LINK_TEXT, 'Logout').click()
+        wait = WebDriverWait(browser, 3)
+        wait.until(
+            expected_conditions.visibility_of_element_located(
+                (By.LINK_TEXT, 'Logout'))).click()
+
 
         self.assertIn('/auth/login', browser.current_url)
 
