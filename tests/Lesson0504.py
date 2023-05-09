@@ -68,7 +68,6 @@ class LoginTestCase(unittest.TestCase):
             (By.LINK_TEXT, 'Logout'))).click()
         # browser.find_element(By.XPATH, '//a[text()="Logout"]').click()
         self.assertIn('/auth/login', browser.current_url)
-        pass
 
 
 if __name__ == '__main__':
