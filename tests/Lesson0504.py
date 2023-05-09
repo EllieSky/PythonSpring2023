@@ -5,6 +5,7 @@ from parameterized import parameterized
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -30,7 +31,8 @@ class LoginTestCase(unittest.TestCase):
         browser.find_element(By.CSS_SELECTOR, '#searchBtn').click()
 
         wait = WebDriverWait(browser, 3)
-        wait.until()
+        wait.until(expected_conditions.element_located_to_be_selected(
+            (By.CSS_SELECTOR, '#empsearch_job_title [value="38"]')))
 
         self.assertIn('/pim/viewEmployeeList', browser.current_url)
 
@@ -40,11 +42,10 @@ class LoginTestCase(unittest.TestCase):
             self.assertEqual('QA Manager', job_title.text)
 
         browser.find_element(By.ID, 'welcome').click()
-        time.sleep(1)
-        browser.find_element(By.XPATH, '//a[text()="Logout"]').click()
-        time.sleep(1)
+        wait.until(expected_conditions.visibility_of_element_located(
+            (By.LINK_TEXT, 'Logout'))).click()
+        # browser.find_element(By.XPATH, '//a[text()="Logout"]').click()
         self.assertIn('/auth/login', browser.current_url)
-        pass
 
 
 if __name__ == '__main__':
