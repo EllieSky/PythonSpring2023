@@ -27,7 +27,7 @@ def search_by_job_title(browser, job_title):
     browser.find_element(By.CSS_SELECTOR, '#searchBtn').click()
     wait = WebDriverWait(browser, 3)
     wait.until(expected_conditions.element_located_to_be_selected(
-        (By.CSS_SELECTOR, f'//select[@id="empsearch_job_title"/option[text()={job_title}]')))
+        (By.XPATH, f'//select[@id="empsearch_job_title"/option[text()={job_title}]')))
 
 
 
