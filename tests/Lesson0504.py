@@ -28,7 +28,9 @@ class LoginTestCase(unittest.TestCase):
 
         browser.find_element(By.CSS_SELECTOR, '#empsearch_job_title option:nth-child(8)').click()
         browser.find_element(By.CSS_SELECTOR, '#searchBtn').click()
-        WebDriverWait
+
+        wait = WebDriverWait(browser, 3)
+        wait.until()
 
         self.assertIn('/pim/viewEmployeeList', browser.current_url)
 
