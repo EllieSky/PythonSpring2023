@@ -6,8 +6,30 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
+
+
+def login(browser, user='admin', password='password'):
+    browser.find_element(By.ID, 'txtUsername').send_keys(user)
+    browser.find_element(By.ID, 'txtPassword').send_keys(password)
+    browser.find_element(By.ID, 'btnLogin').click()
+
+
+def get_greeting(browser):
+    return browser.find_element(By.ID, 'welcome').text
+
+
+def search_by_job_title(browser, job_title):
+    Select(browser.find_element(By.ID, '#empsearch_job_title')
+           ).select_by_visible_text(job_title)
+    browser.find_element(By.CSS_SELECTOR, '#searchBtn').click()
+    wait = WebDriverWait(browser, 3)
+    wait.until(expected_conditions.element_located_to_be_selected(
+        (By.CSS_SELECTOR, f'//select[@id="empsearch_job_title"/option[text()={job_title}]')))
+
+
 
 
 class LoginTestCase(unittest.TestCase):
@@ -18,30 +40,30 @@ class LoginTestCase(unittest.TestCase):
 
     def test_find_qa_manager(self):
         browser = self.browser
-        browser.find_element(By.ID, 'txtUsername').send_keys('admin')
-        browser.find_element(By.ID, 'txtPassword').send_keys('password')
-        browser.find_element(By.ID, 'btnLogin').click()
+
+        # login
+        login(browser)
 
         self.assertIn('/pim/viewEmployeeList', browser.current_url)
 
-        welcome_message = browser.find_element(By.ID, 'welcome').text
+        # get the greeting message
+        welcome_message = get_greeting(browser)
         self.assertEqual('Welcome Admin', welcome_message)
 
-        browser.find_element(By.CSS_SELECTOR, '#empsearch_job_title option:nth-child(8)').click()
-        browser.find_element(By.CSS_SELECTOR, '#searchBtn').click()
-
-        wait = WebDriverWait(browser, 3)
-        wait.until(expected_conditions.element_located_to_be_selected(
-            (By.CSS_SELECTOR, '#empsearch_job_title [value="38"]')))
+        # search/filter by job title
+        search_by_job_title(browser, 'QA Manager')
 
         self.assertIn('/pim/viewEmployeeList', browser.current_url)
 
+        # get resulting table data
         all_job_title_values = browser.find_elements(By.CSS_SELECTOR, '#resultTable tr>td:nth-child(5)')
 
         for job_title in all_job_title_values:
             self.assertEqual('QA Manager', job_title.text)
 
+        # logout
         browser.find_element(By.ID, 'welcome').click()
+        wait = WebDriverWait(browser, 3)
         wait.until(expected_conditions.visibility_of_element_located(
             (By.LINK_TEXT, 'Logout'))).click()
         # browser.find_element(By.XPATH, '//a[text()="Logout"]').click()
