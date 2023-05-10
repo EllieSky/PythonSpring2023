@@ -1,10 +1,10 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 
+from pages.base_page import BasePage
 
-class LoginPage:
-    def __init__(self, browser: WebDriver):
-        self.browser = browser
+
+class LoginPage(BasePage):
 
     def login(self, user='admin', password='password'):
         self.browser.find_element(By.ID, 'txtUsername').send_keys(user)

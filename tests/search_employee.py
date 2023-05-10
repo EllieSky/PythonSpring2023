@@ -57,6 +57,18 @@ class MyTestCase(unittest.TestCase):
 
         self.assertIn('/auth/login', browser.current_url)
 
+    def test_search_by_name(self):
+        self.sign_in.login()
+        self.emp_list.search_by_name('Jo')
+        all_fname_values = get_table_data(self.browser, 3)
+        all_lname_values = get_table_data(self.browser, 4)
+
+        num_rows = len(all_fname_values)
+        for i in range(num_rows):
+            # self.assertTrue('Jo' in all_fname_values[i].text or 'Jo' in all_lname_values[i].text)
+            self.assertIn('Jo', f'{all_fname_values[i].text} {all_lname_values[i].text}')
+
+
     def setUp(self) -> None:
         browser = webdriver.Chrome(service=Service(executable_path=ChromeDriverManager().install()))
         browser.get('http://hrm-online.portnov.com/')
