@@ -39,4 +39,4 @@ class CreateEmployee(unittest.TestCase):
         for element in table_data_elements:
             table_data.append(element.text)
         user_data_given = [emp_id, fname, lname]
-        set(user_data_given).issubset(set(table_data))
+        assert(set(user_data_given).issubset(set(table_data)))
