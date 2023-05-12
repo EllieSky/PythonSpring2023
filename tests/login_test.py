@@ -12,9 +12,10 @@ from pages.login import LoginPage
 class LoginTestCase(unittest.TestCase):
     def setUp(self) -> None:
         browser = webdriver.Chrome(service=Service(executable_path=ChromeDriverManager().install()))
-        browser.get('http://hrm-online.portnov.com/')
+        # browser.get('http://hrm-online.portnov.com/')
         self.browser = browser
         self.sign_in = LoginPage(browser)
+        self.sign_in.goto_page()
 
     def tearDown(self) -> None:
         self.browser.quit()
