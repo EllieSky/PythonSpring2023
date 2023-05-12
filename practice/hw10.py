@@ -6,18 +6,19 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 
-
-def login(browser):
-    browser.find_element(By.ID, 'txtUsername').send_keys('admin')
-    browser.find_element(By.ID, 'txtPassword').send_keys('password')
-    browser.find_element(By.ID, 'btnLogin').click()
+from fixtures.base_fixture import BaseFixture
 
 
-class CreateEmployee(unittest.TestCase):
-    def setUp(self) -> None:
-        browser = webdriver.Chrome(service=Service(executable_path=ChromeDriverManager().install()))
-        browser.get('http://hrm-online.portnov.com/')
-        self.browser = browser
+class CreateEmployee(BaseFixture):
+
+
+    browser.get('http://hrm-online.portnov.com/')
+
+
+    def login(self):
+        browser.find_element(By.ID, 'txtUsername').send_keys('admin')
+        browser.find_element(By.ID, 'txtPassword').send_keys('password')
+        browser.find_element(By.ID, 'btnLogin').click()
 
     @parameterized.parameterized.expand([
         ('tom', 'test'),
@@ -25,7 +26,7 @@ class CreateEmployee(unittest.TestCase):
     ])
     def test_add_employee(self, fname, lname):
         browser = self.browser
-        login(browser)
+        self.signin.login()
         browser.find_element(By.CSS_SELECTOR, '#btnAdd').click()
         browser.find_element(By.XPATH, "//input[@id='firstName']").send_keys(fname)
         browser.find_element(By.XPATH, "//input[@id='lastName']").send_keys(lname)
