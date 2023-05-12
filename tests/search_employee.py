@@ -1,14 +1,10 @@
 import unittest
 
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-from webdriver_manager.chrome import ChromeDriverManager
 
-from pages.login import LoginPage
-from pages.view_emp_list import ViewEmployeeListPage
+from fixtures.base_fixture import BaseFixture
 
 
 def get_greeting(browser):
@@ -27,7 +23,7 @@ def logout(browser):
     wait.until(expected_conditions.url_changes(current_url),
                'url failed to change after logout was clicked')
 
-class MyTestCase(unittest.TestCase):
+class MyTestCase(BaseFixture):
     def test_search_by_job_title(self):
         browser = self.browser
 
@@ -35,7 +31,7 @@ class MyTestCase(unittest.TestCase):
         self.sign_in.login()
         # login(browser)
 
-        self.assertIn('/pim/viewEmployeeList', browser.current_url)
+        self.assertIn(self.emp_list.PAGE_URL, browser.current_url)
 
         # get the greeting message
         welcome_message = get_greeting(browser)
@@ -68,16 +64,6 @@ class MyTestCase(unittest.TestCase):
             # self.assertTrue('Jo' in all_fname_values[i].text or 'Jo' in all_lname_values[i].text)
             self.assertIn('Jo', f'{all_fname_values[i].text} {all_lname_values[i].text}')
 
-
-    def setUp(self) -> None:
-        browser = webdriver.Chrome(service=Service(executable_path=ChromeDriverManager().install()))
-        browser.get('http://hrm-online.portnov.com/')
-        self.browser = browser
-        self.sign_in = LoginPage(browser)
-        self.emp_list = ViewEmployeeListPage(browser)
-
-    def tearDown(self) -> None:
-        self.browser.quit()
 
 
 if __name__ == '__main__':
