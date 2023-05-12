@@ -1,13 +1,12 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 
+from pages.base_page import BasePage
 
-class LoginPage:
-    def __init__(self, browser: WebDriver):
-        self.browser = browser
+
+class LoginPage(BasePage):
 
     def login(self, user='admin', password='password'):
-        browser = self.browser
-        browser.find_element(By.ID, 'txtUsername').send_keys(user)
-        browser.find_element(By.ID, 'txtPassword').send_keys(password)
-        browser.find_element(By.ID, 'btnLogin').click()
+        self.browser.find_element(By.ID, 'txtUsername').send_keys(user)
+        self.browser.find_element(By.ID, 'txtPassword').send_keys(password)
+        self.browser.find_element(By.ID, 'btnLogin').click()

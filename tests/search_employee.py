@@ -1,11 +1,9 @@
 import unittest
-import time
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -16,14 +14,18 @@ from pages.view_emp_list import ViewEmployeeListPage
 def get_greeting(browser):
     return browser.find_element(By.ID, 'welcome').text
 
+def get_table_data(browser, num_column):
+    return browser.find_elements(By.CSS_SELECTOR, f'#resultTable tr>td:nth-child({num_column})')
+
 def logout(browser):
+    current_url = browser.current_url
     browser.find_element(By.ID, 'welcome').click()
     wait = WebDriverWait(browser, 3)
     wait.until(
         expected_conditions.visibility_of_element_located(
             (By.LINK_TEXT, 'Logout'))).click()
-    wait.until(expected_conditions.url_changes(current_url), 'url failed to change after logout was clicked')
-
+    wait.until(expected_conditions.url_changes(current_url),
+               'url failed to change after logout was clicked')
 
 class MyTestCase(unittest.TestCase):
     def test_search_by_job_title(self):
@@ -31,6 +33,7 @@ class MyTestCase(unittest.TestCase):
 
         # login
         self.sign_in.login()
+        # login(browser)
 
         self.assertIn('/pim/viewEmployeeList', browser.current_url)
 
@@ -39,11 +42,12 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual('Welcome Admin', welcome_message)  # add assertion here
 
         # search/filter by job title
-
         self.emp_list.search_by_job_title('QA Manager')
+        # search_by_job_title(browser, 'QA Manager')
+
 
         # get resulting table data
-        all_job_title_values = browser.find_elements(By.CSS_SELECTOR, '#resultTable tr>td:nth-child(5)')
+        all_job_title_values = get_table_data(browser, 5)
 
         for job_title in all_job_title_values:
             self.assertEqual('QA Manager', job_title.text)
@@ -55,7 +59,15 @@ class MyTestCase(unittest.TestCase):
 
     def test_search_by_name(self):
         self.sign_in.login()
-        self.emp_list.search_by_name('Bob')
+        self.emp_list.search_by_name('Jo')
+        all_fname_values = get_table_data(self.browser, 3)
+        all_lname_values = get_table_data(self.browser, 4)
+
+        num_rows = len(all_fname_values)
+        for i in range(num_rows):
+            # self.assertTrue('Jo' in all_fname_values[i].text or 'Jo' in all_lname_values[i].text)
+            self.assertIn('Jo', f'{all_fname_values[i].text} {all_lname_values[i].text}')
+
 
     def setUp(self) -> None:
         browser = webdriver.Chrome(service=Service(executable_path=ChromeDriverManager().install()))
