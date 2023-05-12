@@ -3,9 +3,13 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.select import Select
 
 from pages.base_page import BasePage
+from tests import BASE_URL
 
 
 class ViewEmployeeListPage(BasePage):
+    PAGE_URL = f'{BASE_URL}/pim/viewEmployeeList'
+    HEADER = 'Employee Information'
+
     btn_search = (By.ID, 'searchBtn')
     select_job_title = (By.ID, 'empsearch_job_title')
 

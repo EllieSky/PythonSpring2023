@@ -1,30 +1,19 @@
 import unittest
 
 from parameterized import parameterized
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
-from webdriver_manager.chrome import ChromeDriverManager
 
-from pages.login import LoginPage
+from fixtures.base_fixture import BaseFixture
 
 
-class LoginTestCase(unittest.TestCase):
-    def setUp(self) -> None:
-        browser = webdriver.Chrome(service=Service(executable_path=ChromeDriverManager().install()))
-        # browser.get('http://hrm-online.portnov.com/')
-        self.browser = browser
-        self.sign_in = LoginPage(browser)
-        self.sign_in.goto_page()
-
-    def tearDown(self) -> None:
-        self.browser.quit()
-
+class LoginTestCase(BaseFixture):
     def test_valid_login(self):
         browser = self.browser
+        self.assertEqual(self.sign_in.HEADER, self.sign_in.get_header())
+
         self.sign_in.login()
 
-        self.assertIn('/pim/viewEmployeeList', browser.current_url)
+        self.assertEqual(self.emp_list.PAGE_URL, browser.current_url)
 
         welcome_message = browser.find_element(By.ID, 'welcome').text
         self.assertEqual('Welcome Admin', welcome_message)  # add assertion here

@@ -1,23 +1,12 @@
 import unittest
 
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
-from webdriver_manager.chrome import ChromeDriverManager
 
-from pages.login import LoginPage
+from fixtures.base_fixture import AdminLoginFixture
 
 
-class TableSort(unittest.TestCase):
-    def setUp(self) -> None:
-        self.url = "http://hrm-online.portnov.com/"
-        self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-        self.browser.get(self.url)
-        self.wait = WebDriverWait(self.browser, 6)
-        self.sign_in = LoginPage(self.browser)
-        self.sign_in.login()
+class TableSort(AdminLoginFixture):
 
     def test_sort_by_first_middle_name(self):
         browser = self.browser

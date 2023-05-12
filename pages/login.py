@@ -7,9 +7,9 @@ from tests import BASE_URL
 class LoginPage(BasePage):
 
     PAGE_URL = f'{BASE_URL}/auth/login'
-    HEADER =''
+    HEADER ='LOGIN Panel'
 
-    page_header =''
+    page_header = (By.ID, 'logInPanelHeading')
 
     def login(self, user='admin', password='password'):
         self.browser.find_element(By.ID, 'txtUsername').send_keys(user)
