@@ -5,6 +5,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 
+from pages.add_emp import AddEmployeePage
 from pages.login import LoginPage
 from pages.view_emp_list import ViewEmployeeListPage
 
@@ -18,6 +19,7 @@ class BaseFixture(TestCase):
 
         self.sign_in = LoginPage(browser)
         self.emp_list = ViewEmployeeListPage(browser)
+        self.add_emp = AddEmployeePage(browser)
 
         self.sign_in.goto_page()
 

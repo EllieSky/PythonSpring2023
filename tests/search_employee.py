@@ -10,8 +10,10 @@ from fixtures.base_fixture import BaseFixture
 def get_greeting(browser):
     return browser.find_element(By.ID, 'welcome').text
 
+
 def get_table_data(browser, num_column):
     return browser.find_elements(By.CSS_SELECTOR, f'#resultTable tr>td:nth-child({num_column})')
+
 
 def logout(browser):
     current_url = browser.current_url
@@ -22,6 +24,7 @@ def logout(browser):
             (By.LINK_TEXT, 'Logout'))).click()
     wait.until(expected_conditions.url_changes(current_url),
                'url failed to change after logout was clicked')
+
 
 class MyTestCase(BaseFixture):
     def test_search_by_job_title(self):
@@ -40,7 +43,6 @@ class MyTestCase(BaseFixture):
         # search/filter by job title
         self.emp_list.search_by_job_title('QA Manager')
         # search_by_job_title(browser, 'QA Manager')
-
 
         # get resulting table data
         all_job_title_values = get_table_data(browser, 5)
@@ -63,7 +65,6 @@ class MyTestCase(BaseFixture):
         for i in range(num_rows):
             # self.assertTrue('Jo' in all_fname_values[i].text or 'Jo' in all_lname_values[i].text)
             self.assertIn('Jo', f'{all_fname_values[i].text} {all_lname_values[i].text}')
-
 
 
 if __name__ == '__main__':

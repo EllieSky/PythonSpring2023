@@ -7,7 +7,7 @@ from tests import BASE_URL
 class LoginPage(BasePage):
 
     PAGE_URL = f'{BASE_URL}/auth/login'
-    HEADER ='LOGIN Panel'
+    HEADER = 'LOGIN Panel'
 
     page_header = (By.ID, 'logInPanelHeading')
 
