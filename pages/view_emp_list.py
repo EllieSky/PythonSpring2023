@@ -31,6 +31,16 @@ class ViewEmployeeListPage(BasePage):
         self.wait.until(expected_conditions.presence_of_element_located(
             [By.CSS_SELECTOR, f'#empsearch_employee_name_empName[value="{name}"]']))
 
+    def search_by_id(self, emp_id):
+        browser = self.browser
+        self.wait.until(
+            expected_conditions.presence_of_element_located(
+                (By.CSS_SELECTOR, '#empsearch_id'))).click()
+        browser.find_element(By.ID, "empsearch_id").send_keys(emp_id)
+        self.wait.until(expected_conditions.text_to_be_present_in_element_value((By.ID, "empsearch_id"), emp_id))
+        browser.find_element(By.ID, "searchBtn").click()
+        self.wait.until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, '#resultTable tbody')))
+
     def delete_employee(self):
         # locate correct employee by name / lname / id
         # check / click checkbox
