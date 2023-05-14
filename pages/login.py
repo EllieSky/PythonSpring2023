@@ -15,3 +15,4 @@ class LoginPage(BasePage):
         self.browser.find_element(By.ID, 'txtUsername').send_keys(user)
         self.browser.find_element(By.ID, 'txtPassword').send_keys(password)
         self.browser.find_element(By.ID, 'btnLogin').click()
+
