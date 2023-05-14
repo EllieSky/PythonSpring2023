@@ -52,11 +52,11 @@ class ViewEmployeeListPage(BasePage):
             for result in results:
                 rows.append(result.text)
                 i += 1
-        count = 1
+
         for item in rows:
             if item == user_id:
                 return True
-            count += 1
+
         return False
 
 
