@@ -13,7 +13,7 @@ class ViewPersonalDetailsPage(BasePage):
     id = (By.XPATH, '//input[@id = "personal_txtEmployeeId"]')
 
     def get_user_details(self):
-        """returning tuple with default user details """
+        """returning list with default user details on the page"""
         browser = self.browser
         first = browser.find_element(*self.first).get_attribute('value')
         last = browser.find_element(*self.last).get_attribute('value')

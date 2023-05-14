@@ -14,7 +14,7 @@ class AddEmployeePage(BasePage):
     input_id = (By.XPATH, "//input[@name= 'employeeId']")
 
     def fill_form_and_submit(self, first, last):
-        """returns tuple with expected user info"""
+        """returns list with expected user info submitted from previous page"""
         browser = self.browser
         browser.find_element(*self.input_fname).send_keys(first)
         browser.find_element(*self.input_lname).send_keys(last)
