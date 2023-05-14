@@ -36,6 +36,7 @@ class ViewEmployeeListPage(BasePage):
 
 
     def find_created_employee_by_id(self, user_id):
+        '''not optimised function, gets all IDs from all pages, returns True is user ID is found'''
         browser = self.browser
         current_url = browser.current_url
         browser.find_element(*self.header_view_employee_list_btn).click()
