@@ -61,8 +61,11 @@ class MyTestCase(BaseFixture):
 
         num_rows = len(all_fname_values)
         for i in range(num_rows):
-            # self.assertTrue('Jo' in all_fname_values[i].text or 'Jo' in all_lname_values[i].text)
             self.assertIn('Jo', f'{all_fname_values[i].text} {all_lname_values[i].text}')
+
+
+
+
 
 
 
