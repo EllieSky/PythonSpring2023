@@ -18,7 +18,7 @@ class CreateEmployee(BaseFixture):
     def test_add_employee(self, fname, lname):
         browser = self.browser
         self.sign_in.goto_page()
-        self.signin.login()
+        self.sign_in.login()
         browser.find_element(By.CSS_SELECTOR, '#btnAdd').click()
         browser.find_element(By.XPATH, "//input[@id='firstName']").send_keys(fname)
         browser.find_element(By.XPATH, "//input[@id='lastName']").send_keys(lname)
