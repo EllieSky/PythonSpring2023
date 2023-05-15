@@ -11,21 +11,13 @@ from fixtures.base_fixture import BaseFixture
 
 class CreateEmployee(BaseFixture):
 
-
-    browser.get('http://hrm-online.portnov.com/')
-
-
-    def login(self):
-        browser.find_element(By.ID, 'txtUsername').send_keys('admin')
-        browser.find_element(By.ID, 'txtPassword').send_keys('password')
-        browser.find_element(By.ID, 'btnLogin').click()
-
     @parameterized.parameterized.expand([
         ('tom', 'test'),
         ('charlie', 'chaplin')
     ])
     def test_add_employee(self, fname, lname):
         browser = self.browser
+        self.sign_in.goto_page()
         self.signin.login()
         browser.find_element(By.CSS_SELECTOR, '#btnAdd').click()
         browser.find_element(By.XPATH, "//input[@id='firstName']").send_keys(fname)
