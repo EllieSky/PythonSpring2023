@@ -31,6 +31,26 @@ class ViewEmployeeListPage(BasePage):
         self.wait.until(expected_conditions.presence_of_element_located(
             [By.CSS_SELECTOR, f'#empsearch_employee_name_empName[value="{name}"]']))
 
+
+    def search_by_employee_id(self, empl_id):
+        browser = self.browser
+        self.wait.until(
+            expected_conditions.presence_of_element_located(
+                (By.CSS_SELECTOR, '#empsearch_employee_name_empName.inputFormatHint')))
+        self.browser.find_element(By.ID, 'empsearch_id').send_keys(empl_id)
+        browser.find_element(*self.btn_search).click()
+        self.wait.until(expected_conditions.text_to_be_present_in_element_value((By.ID, 'empsearch_id'), empl_id))
+
+    # def get_table_row_data(self, row_number):
+    #     table_row =  self.browser.find_element(By.XPATH, f'//tbody/tr[{row_number}]')
+    #     cells = table_row.find_elements(By.XPATH, './/td')
+    #     # table_row.find_elements(By.TAG_NAME, 'td')
+    #     # table_row.find_elements(By.CSS_SELECTOR, 'td')
+    #     result = []
+    #     for cell in cells:
+    #         result.append(cell.text or cell.get_attribute('value'))
+    #     return result
+
     def delete_employee(self):
         # locate correct employee by name / lname / id
         # check / click checkbox
@@ -38,5 +58,4 @@ class ViewEmployeeListPage(BasePage):
         pass
 
     def add_employee(self):
-        # click the add button
-        pass
+        self.wait.until(expected_conditions.presence_of_element_located((By.ID, 'btnAdd'))).click()
