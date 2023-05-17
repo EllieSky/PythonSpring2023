@@ -121,7 +121,7 @@ class YodifyFunctionTests(unittest.TestCase):
         #     ),
         # TODO: also support quotation marks, parentheses, and apostrophes
     ])
-    def test_yodify_strig(self, test_name, sentence, expected):
+    def test_yodify_string(self, test_name, sentence, expected):
         actual = yodify_sentence(sentence)
         self.assertEqual(expected, actual)
 
