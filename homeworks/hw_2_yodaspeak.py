@@ -70,7 +70,7 @@ class YodifyFunctionTests(unittest.TestCase):
             'Plain the in mainly stays spain in rain the if wonder I'
         ),
         (
-            'I first',
+            'I first and caps',
             'I wonder if the rain in Spain stays mainly in the plain',
             'Plain the in mainly stays Spain in rain the if wonder I'
         ),
