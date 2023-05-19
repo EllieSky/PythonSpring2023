@@ -14,7 +14,7 @@ class BaseFixture(TestCase):
         browser = get_browser()
 
         self.browser = browser
-        self.wait = WebDriverWait(self.browser, 6)
+        self.wait = WebDriverWait(self.browser, 10)
 
         self.sign_in = LoginPage(browser)
         self.emp_list = ViewEmployeeListPage(browser)

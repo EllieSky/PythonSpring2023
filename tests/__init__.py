@@ -17,6 +17,8 @@ BASE_URL = f'{DOMAIN}/symfony/web/index.php'
 TESTS_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.dirname(TESTS_DIR)
 
+DEFAULT_WAIT = 6
+
 OUTPUT_DIR = 'test_run_results'
 
 def get_browser(browser_type=BROWSER):
