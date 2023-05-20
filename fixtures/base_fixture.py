@@ -3,10 +3,12 @@ from unittest import TestCase
 
 from selenium.webdriver.support.wait import WebDriverWait
 
+from menus.main import MainMenu
 from pages.add_employee import AddEmployeePage
+from pages.admin_localization import AdminLocalizationPage
 from pages.login import LoginPage
 from pages.view_emp_list import ViewEmployeeListPage
-from tests import PROJECT_DIR, OUTPUT_DIR, get_browser
+from tests import PROJECT_DIR, OUTPUT_DIR, DEFAULT_WAIT, get_browser
 
 
 class BaseFixture(TestCase):
@@ -14,11 +16,14 @@ class BaseFixture(TestCase):
         browser = get_browser()
 
         self.browser = browser
-        self.wait = WebDriverWait(self.browser, 10)
+        self.wait = WebDriverWait(browser, DEFAULT_WAIT)
+
+        self.main_menu = MainMenu(browser)
 
         self.sign_in = LoginPage(browser)
         self.emp_list = ViewEmployeeListPage(browser)
         self.add_emp = AddEmployeePage(browser)
+        self.admin_local = AdminLocalizationPage(browser)
 
         self.sign_in.goto_page()
 
