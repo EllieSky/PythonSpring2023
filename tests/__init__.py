@@ -20,7 +20,6 @@ PROJECT_DIR = os.path.dirname(TESTS_DIR)
 DEFAULT_WAIT = 6
 
 OUTPUT_DIR = 'test_run_results'
-# os.environ.setdefault('HEADLESS', 'True')
 
 def get_browser(browser_type=BROWSER):
     if browser_type == 'chrome':
