@@ -20,10 +20,20 @@ PROJECT_DIR = os.path.dirname(TESTS_DIR)
 DEFAULT_WAIT = 6
 
 OUTPUT_DIR = 'test_run_results'
+# os.environ.setdefault('HEADLESS', 'True')
 
 def get_browser(browser_type=BROWSER):
     if browser_type == 'chrome':
-        return webdriver.Chrome(service=Service(
+        options = webdriver.ChromeOptions()
+        if os.environ.get('HEADLESS'):
+            options.add_argument("--headless=new")
+            options.add_argument("--disable-gpu")
+            options.add_argument("--disable-dev-shm-usage")
+            options.add_argument("--no-sandbox")
+            options.add_argument("--remote-debugging-port=9222")
+            options.add_argument("--window-size=1920,1080")
+            options.add_argument("--ignore-certificate-errors")
+        return webdriver.Chrome(options=options, service=Service(
             executable_path=ChromeDriverManager().install()))
     elif browser_type == 'firefox':
         return webdriver.Firefox(service=Service(

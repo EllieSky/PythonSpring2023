@@ -21,4 +21,5 @@ class BasePage(BaseMethods):
         self.browser.get(self.PAGE_URL)
 
     def get_header(self):
-        return self.browser.find_element(*self.page_header).text
+        # return self.browser.find_element(*self.page_header).text
+        return self.get_text(self.page_header)
