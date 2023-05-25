@@ -3,8 +3,9 @@ name: test automation
 on:
   pull_request:
     branches:
-#      - '!master'
+      - master
       - '*'
+#      - '!master'
 
 jobs:
   test:
