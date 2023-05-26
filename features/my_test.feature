@@ -1,3 +1,4 @@
+@no-selenium
 Feature: My first features file
 
   Scenario: Count letters in my first name
