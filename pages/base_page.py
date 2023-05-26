@@ -1,7 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
-
 from lib.base_methods import BaseMethods
 from tests import BASE_URL, DEFAULT_WAIT
 
