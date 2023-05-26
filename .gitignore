@@ -1,6 +1,7 @@
 
 # project files
 test_run_results/
+bdd_run_results/
 
 # MacBook files
 .DS_Store

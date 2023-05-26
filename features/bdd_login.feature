@@ -8,3 +8,10 @@ Feature: Basic BDD Login
     Then the url should contain /pim/viewEmployeeList
     When I get the text from element id=welcome
     Then the text should be Welcome Admin
+
+
+  Scenario: As an admin I should be able to login
+    Given I am on the Sign In page
+    When I login as admin
+    Then the url should contain /pim/viewEmployeeList
+    And the welcome message should be Welcome Admin

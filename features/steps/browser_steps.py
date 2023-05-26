@@ -9,7 +9,7 @@ def open_url(context, url):
 
 @step('I look for the element {by}={locator}')
 def find_elem(context, by, locator):
-    bm: BaseMethods = BaseMethods(context.browser)
+    bm: BaseMethods = context.base_methods
     return bm.find_elem((by, locator))
 
 @step('I enter text {text} into the element {by}={locator}')
