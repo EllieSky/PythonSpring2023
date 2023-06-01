@@ -27,9 +27,9 @@ class Login1TestCase(unittest.TestCase):
 
     @parameterized.expand([
         ('no_username', '', 'password', '/auth/login', 'Username cannot be empty'),
-        ('invalid_password', 'admin', '1233', '/auth/validateCredentials', 'Invalid credentials')
+        ('invalid_password', 'admin', '1234', '/auth/validateCredentials', 'Invalid credentials')
     ])
-    def test_(self,test_name, username, password, current_url, expected_error_message):
+    def test_(self, test_name, username, password, current_url, expected_error_message):
         browser = self.browser
         browser.find_element(By.ID, 'txtUsername').send_keys(username)
         browser.find_element(By.ID, 'txtPassword').send_keys(password)
